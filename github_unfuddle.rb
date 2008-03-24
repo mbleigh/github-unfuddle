@@ -49,13 +49,11 @@ def post_changeset_to_unfuddle(xml)
   
   begin
     path = "/api/v1/projects/#{unfuddle_project_id}/changesets.xml"
-    puts path.inspect
+    
     request = Net::HTTP::Post.new(path, {'Content-type' => 'application/xml'})
     request.basic_auth CONFIG["unfuddle"]["user"], CONFIG["unfuddle"]["password"]
     request.body = xml
 
-    puts request.inspect
-    
     response = http.request(request)
     
     if response.code == "201"
