@@ -1,0 +1,11 @@
+unfuddle:
+  subdomain: something
+  user: yourusername
+  password: yourpassword
+  people:
+    githubemailaddress@something.com: 1111
+    
+repositories:
+  github-unfuddle:
+    unfuddle-project-id: 1111
+    
