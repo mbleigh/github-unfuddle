@@ -1,5 +1,6 @@
 unfuddle:
   subdomain: something
+  use_ssl: false
   user: yourusername
   password: yourpassword
   people:
@@ -7,5 +8,5 @@ unfuddle:
     
 repositories:
   github-unfuddle:
-    unfuddle-project-id: 1111
+    unfuddle_project_id: 1111
     
