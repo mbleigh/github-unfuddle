@@ -1,2 +1,5 @@
 GitHub-Unfuddle Bridge
 ======================
+
+This GitHub-Unfuddle Bridge will automatically create changesets for an Unfuddle process if
+it is pointed to by a GitHub post-receive hook.
