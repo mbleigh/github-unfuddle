@@ -3,3 +3,28 @@ GitHub-Unfuddle Bridge
 
 This GitHub-Unfuddle Bridge will automatically create changesets for an Unfuddle process if
 it is pointed to by a GitHub post-receive hook.
+
+Setup
+=====
+
+The bridge runs a Sinatra (http://sinatra.rubyforge.org/) server that accepts POSTs to its
+root. Simply get the bridge up and running and then point your GitHub projects' post-receive
+hooks to it.
+
+You will need to configure mappings for each github repository to the corresponding 
+Unfuddle project ID and you will also need mappings of github email addresses to corresponding
+Unfuddle user IDs. Right now these will have to be pulled out using the Unfuddle API, a tool
+to extract this data more readily will be forthcoming.
+
+You must also make sure to uncheck the "Unfuddle handles my changesets" box in the project settings.
+
+Also, this does not yet support 'powerful commits' i.e. closing tickets from a commit message.
+Look for this functionality soon.
+
+More Info
+=========
+
+Project Home: http://github.com/mbleigh/github-unfuddle/
+Contact E-Mail: michael@intridea.com
+
+Feel free to fork, this is a project in its infancy!
