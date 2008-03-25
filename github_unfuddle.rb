@@ -3,11 +3,45 @@ require 'sinatra'
 require 'json'
 require 'yaml'
 require 'net/http'
+require 'tinder'
+require 'erb'
 
 CONFIG = YAML.load_file("config.yml")
+REPOS = YAML.load_file("repos.yml")
+
+class GithubCampfire
+  
+  def initialize(payload)
+    payload = JSON.parse(payload)
+    return unless payload.keys.include?("repository")
+    @repo = payload["repository"]["name"]
+    @template = ERB.new(REPOS[@repo]["template"] || "[<%= commit['repo'] %>] <%= commit['message'] %> - <%= commit['author']['name'] %> (<%= commit['url'] %>)")
+    @room = connect(@repo)
+    payload["commits"].each { |c| process_commit(c.last) }
+  end
+  
+  def connect(repo)
+    credentials = REPOS[repo]
+    campfire = Tinder::Campfire.new(credentials['subdomain'])
+    campfire.login(credentials['username'], credentials['password'])
+    return campfire.find_room_by_name(credentials['room'])
+  end
+  
+  def process_commit(commit)
+    #we don't need all sorts of local_assigns eval shit here, so this'll do
+    commit["repo"] = @repo
+    proc = Proc.new do 
+      commit
+    end
+    @room.speak(@template.result(proc))
+  end
+  
+end
+
 
 post '/' do
   push = JSON.parse(params[:payload])
+  GithubCampfire.new(params[:payload])
   build_unfuddle_xml_from(push)
 end
 
@@ -34,7 +68,7 @@ Details: #{commit["url"]}</message>
     successes << post_changeset_to_unfuddle(xml)
   end
   
-  successes.inspect
+  successes
 end
 
 def post_changeset_to_unfuddle(xml)
