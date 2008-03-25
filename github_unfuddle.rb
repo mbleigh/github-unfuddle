@@ -31,6 +31,7 @@ Details: #{commit["url"]}</message>
     </changeset>
     XML
     
+    #seeing if this looks ok without a revision number
     #<revision type="integer">#{timestamp.strftime("%y%m%d%H%M")}</revision>
     
     successes << post_changeset_to_unfuddle(xml)
