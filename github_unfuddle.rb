@@ -28,9 +28,10 @@ def build_unfuddle_xml_from(push)
       <message>#{commit["message"]}
       
 Details: #{commit["url"]}</message>
-      <revision type="integer">#{timestamp.strftime("%y%m%d%H%M")}</revision>
     </changeset>
     XML
+    
+    #<revision type="integer">#{timestamp.strftime("%y%m%d%H%M")}</revision>
     
     successes << post_changeset_to_unfuddle(xml)
   end
