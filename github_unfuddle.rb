@@ -26,13 +26,10 @@ def build_unfuddle_xml_from(push)
     <changeset>
       #{"<author-id type=\"integer\">#{unfuddle_author_id(commit)}</author-id>" if unfuddle_author_id(commit)}
       <message>#{commit["message"]}
-      
+      <revision type="integer">#{timestamp.strftime("%y%m%d%H%M")}</revision>
 Details: #{commit["url"]}</message>
     </changeset>
     XML
-    
-    #seeing if this looks ok without a revision number
-    #<revision type="integer">#{timestamp.strftime("%y%m%d%H%M")}</revision>
     
     successes << post_changeset_to_unfuddle(xml)
   end
