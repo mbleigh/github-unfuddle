@@ -41,7 +41,9 @@ end
 
 post '/' do
   push = JSON.parse(params[:payload])
+  # Fire off the campfire message
   GithubCampfire.new(params[:payload])
+  # Create the Unfuddle changeset
   build_unfuddle_xml_from(push)
 end
 
